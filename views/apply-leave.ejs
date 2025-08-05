@@ -1,0 +1,102 @@
+<%- include('partials/header', { user: user }) %>
+
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 600px;
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #555;
+  }
+
+  textarea,
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+  }
+
+  textarea:focus,
+  input[type="date"]:focus {
+    outline: none;
+    border-color: #0066cc;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    background-color: #0066cc;
+    color: #fff;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .btn:hover {
+    background-color: #004999;
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    color: #999;
+    font-size: 14px;
+  }
+</style>
+
+<div class="container">
+  <h2>Apply for Leave</h2>
+
+  <form action="/leave/apply" method="POST" class="leave-form">
+    <div class="form-group">
+      <label for="reason">Reason for Leave</label>
+      <textarea id="reason" name="reason" rows="4" placeholder="Enter your reason here" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="fromDate">From Date</label>
+      <input type="date" id="fromDate" name="fromDate" required />
+    </div>
+
+    <div class="form-group">
+      <label for="toDate">To Date</label>
+      <input type="date" id="toDate" name="toDate" required />
+    </div>
+
+    <button type="submit" class="btn">Submit Leave Request</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>

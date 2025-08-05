@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Leave Management</title>
+  <style>
+    header {
+      background-color: #004080;
+      padding: 1rem 0;
+    }
+
+    nav {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+      color: white;
+    }
+
+    nav h2 {
+      margin: 0;
+    }
+
+    nav h2 a {
+      color: white;
+      text-decoration: none;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <nav>
+      <h2>
+        <% if (user && user.role === 'student') { %>
+          <a href="/dashboard">Leave System</a>
+        <% } else if (user && user.role === 'faculty') { %>
+          <a href="/leave/view">Leave System</a>
+        <% } else { %>
+          <a href="/login">Leave System</a>
+        <% } %>
+      </h2>
+      <ul>
+  <% if (user) { %>
+    <% if (user.role === 'student') { %>
+      <li><a href="/leave/apply">Apply Leave</a></li>
+    <% } else if (user.role === 'faculty') { %>
+      <li><a href="/leave/view">View Requests</a></li>
+    <% } %>
+    <li><a href="/logout">Logout</a></li>
+  <% } else { %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/register">Register</a></li>
+  <% } %>
+</ul>
+
+    </nav>
+  </header>

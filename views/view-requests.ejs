@@ -1,0 +1,101 @@
+<%- include('partials/header', { user: user }) %>
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 800px;
+  margin: 80px auto 100px; 
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container h2 {
+  text-align: center;
+  color: #004080;
+  margin-bottom: 30px;
+}
+
+.request-card {
+  background-color: #f9f9f9;
+  border-left: 5px solid #004080;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.request-card p {
+  margin: 8px 0;
+  color: #333;
+}
+
+.request-card form {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.request-card select {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.btn.small {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #004080;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn.small:hover {
+  background-color: #002f5f;
+}
+
+@media (max-width: 600px) {
+  .request-card form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+</style>
+<div class="container">
+  <h2>Leave Requests</h2>
+
+  <% if (requests.length === 0) { %>
+    <p>No leave requests submitted yet.</p>
+  <% } else { %>
+    <% requests.forEach(req => { %>
+      <div class="request-card">
+        <p><strong>Student:</strong> <%= req.student.username %></p>
+        <p><strong>Reason:</strong> <%= req.reason %></p>
+        <p><strong>From:</strong> <%= new Date(req.fromDate).toDateString() %></p>
+        <p><strong>To:</strong> <%= new Date(req.toDate).toDateString() %></p>
+        <p><strong>Status:</strong> <%= req.status %></p>
+
+        <form method="POST" action="/leave/update/<%= req._id %>">
+          <label for="status">Update Status:</label>
+          <select name="status" id="status">
+            <option value="Pending" <%= req.status === "Pending" ? "selected" : "" %>>Pending</option>
+            <option value="Approved" <%= req.status === "Approved" ? "selected" : "" %>>Approved</option>
+            <option value="Rejected" <%= req.status === "Rejected" ? "selected" : "" %>>Rejected</option>
+          </select>
+          <button type="submit" class="btn small">Update</button>
+        </form>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>
